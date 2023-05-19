@@ -33,7 +33,7 @@ export default {
         handleBarCode(scanned_code){
 
             axios
-                .post('/admin/tracks/scan/', {'scanned_code': scanned_code})
+                .post('/admin/tracks/scan', {'scanned_code': scanned_code})
                 .then((response) => {
                     if (response.data.success) {
                         let Toast = Swal.mixin({
