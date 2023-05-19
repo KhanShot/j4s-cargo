@@ -14,7 +14,10 @@ class CostController extends Controller
     }
 
     public function logs(){
-        $logs = TrackLog::query()->get();
+        $logs = TrackLog::with('user')
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
         return view('admin.logs', compact('logs'));
     }
 

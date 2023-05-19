@@ -55,18 +55,7 @@ class TracksController extends Controller
         $trackings = Tracking::query()->with('user')->get();
         return view('admin.tracks', compact('trackings'));
     }
-    public function getIp(){
-        foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
-            if (array_key_exists($key, $_SERVER) === true){
-                foreach (explode(',', $_SERVER[$key]) as $ip){
-                    $ip = trim($ip); // just to be safe
-                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false){
-                        return $ip;
-                    }
-                }
-            }
-        }
-    }
+
     public function scan(Request $request){
         $track = Tracking::query()->where('number', $request->get('scanned_code'))->first();
         $data = array();
@@ -127,7 +116,34 @@ class TracksController extends Controller
             return $this->successResponse($message, $request->get('scanned_code'));
         }
 
-
+        if ($manager_location == 'kaz_pvz'){
+            if ($track->status == 'kaz_pvz_stock'){
+                $data['status'] = 'fail';
+                $data['text'] = 'Статус трекинга уже изменен!';
+                $this->createLog($data);
+                return $this->failedResponse('Статус трекинга уже изменен!', 400);
+            }
+            $message = 'Статус изменен!';
+            $data['status'] = 'success';
+            $data['text'] = 'Статус изменен успешно!';
+            if ($track->status == 'created'){
+                $data['status'] = 'success';
+                $data['text'] = 'Статус изменен! (но не был пробит в складе Китая)';
+                $message = '<b>!! Статус изменен! (но не был пробит в складе Китая) !!</b>';
+            }
+            if ($track->status == 'china_stock'){
+                $data['status'] = 'success';
+                $data['text'] = 'Статус изменен! (но не был пробит в Казахстане)';
+                $message = '<b>!! Статус изменен! (но не был пробит в складе Китая) !!</b>';
+            }
+            $track->status = 'kaz_pvz_stock';
+            $track->scanned_user_id = auth()->user()->id;
+            $track->scanned_time = now();
+            $track->status_changed_time = now();
+            $track->save();
+            $this->createLog($data);
+            return $this->successResponse($message, $request->get('scanned_code'));
+        }
     }
 
     private function createLog($data){

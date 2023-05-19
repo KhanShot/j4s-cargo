@@ -26,6 +26,7 @@
                         <select name="manager_location" class="form-control">
                             <option value="china">Склад(Китай)</option>
                             <option value="kaz">Казахстан</option>
+                            <option value="kaz_pvz">ПВЗ Казахстан</option>
                         </select>
                     </div>
 

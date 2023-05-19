@@ -11,4 +11,8 @@ class TrackLog extends Model
     protected $fillable = [
         'user_id', 'city', 'track_id', 'text', 'status', 'track_status', 'scanned_code'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
