@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cost;
+use App\Models\TrackLog;
 use Illuminate\Http\Request;
 
 class CostController extends Controller
@@ -13,7 +14,8 @@ class CostController extends Controller
     }
 
     public function logs(){
-        return view('admin.logs');
+        $logs = TrackLog::query()->get();
+        return view('admin.logs', compact('logs'));
     }
 
     public function create(Request $request){

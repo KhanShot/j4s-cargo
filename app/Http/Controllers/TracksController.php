@@ -6,6 +6,7 @@ use App\Http\Traits\TJsonResponse;
 use App\Models\Cost;
 use App\Models\Tracking;
 use App\Models\TrackLog;
+use Stevebauman\Location\Facades\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 class TracksController extends Controller
@@ -54,11 +55,25 @@ class TracksController extends Controller
         $trackings = Tracking::query()->with('user')->get();
         return view('admin.tracks', compact('trackings'));
     }
-
+    public function getIp(){
+        foreach (array('HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_X_CLUSTER_CLIENT_IP', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR') as $key){
+            if (array_key_exists($key, $_SERVER) === true){
+                foreach (explode(',', $_SERVER[$key]) as $ip){
+                    $ip = trim($ip); // just to be safe
+                    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) !== false){
+                        return $ip;
+                    }
+                }
+            }
+        }
+    }
     public function scan(Request $request){
         $track = Tracking::query()->where('number', $request->get('scanned_code'))->first();
         $data = array();
         $data['user_id'] = auth()->user()->id;
+        $data['city'] = Location::get($request->ip());
+        $data['ip'] = $request->getClientIp();
+        return $data;
         $data['scanned_code'] = $request->get('scanned_code');
         if (!$track){
             $data['status'] = 'fail';
