@@ -71,9 +71,8 @@ class TracksController extends Controller
         $track = Tracking::query()->where('number', $request->get('scanned_code'))->first();
         $data = array();
         $data['user_id'] = auth()->user()->id;
-        $data['city'] = Location::get($request->ip());
+        $data['city'] = Location::get($request->ip())->cityName;
         $data['ip'] = $request->getClientIp();
-        return $data;
         $data['scanned_code'] = $request->get('scanned_code');
         if (!$track){
             $data['status'] = 'fail';
