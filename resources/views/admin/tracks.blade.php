@@ -71,7 +71,7 @@
                         <select class="form-control" name="status">
                             <option value="china_stock">Доставлен в склад(Китай)</option>
                             <option value="kaz_stock">Доставлен в Казахстан</option>
-                            <option value="kaz_pvz_stock">Доставлен в Казахстан</option>
+                            <option value="kaz_pvz_stock">Доставлен в ПВЗ Казахстан</option>
                         </select>
                         <button type="submit" class="btn btn-success">Изменить статус</button>
                     </form>
