@@ -113,7 +113,7 @@ class TracksController extends Controller
             return $this->successResponse($message, $request->get('scanned_code'));
         }
 
-//        return $this->successResponse('Статус изменен!', $request->get('scanned_code'));
+
     }
 
     private function createLog($data){

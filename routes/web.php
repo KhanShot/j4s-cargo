@@ -23,16 +23,16 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
     Route::get('dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])->middleware('admin')->name('admin.dashboard');
 
     Route::prefix('tracks')->middleware('manager')->group(function (){
-        Route::get('', [\App\Http\Controllers\TracksController::class, 'getTracks'])->name('admin.tracks');
-        Route::post('scan', [\App\Http\Controllers\TracksController::class, 'scan']);
-        Route::post('edit', [\App\Http\Controllers\TracksController::class, 'edit'])->name('admin.tracks.edit');
+        Route::get('/', [\App\Http\Controllers\TracksController::class, 'getTracks'])->name('admin.tracks');
+        Route::post('/scan', [\App\Http\Controllers\TracksController::class, 'scan']);
+        Route::post('/edit', [\App\Http\Controllers\TracksController::class, 'edit'])->name('admin.tracks.edit');
     });
 
     Route::prefix('users')->middleware('admin')->group(function (){
-        Route::get('', [\App\Http\Controllers\UserController::class, 'index'])->name('admin.users');
-        Route::get('create', [\App\Http\Controllers\UserController::class, 'create'])->name('admin.users.create');
-        Route::post('store', [\App\Http\Controllers\UserController::class, 'store'])->name('admin.users.store');
-        Route::delete('delete/{user_id}', [\App\Http\Controllers\UserController::class, 'delete'])->name('admin.users.delete');
+        Route::get('/', [\App\Http\Controllers\UserController::class, 'index'])->name('admin.users');
+        Route::get('/create', [\App\Http\Controllers\UserController::class, 'create'])->name('admin.users.create');
+        Route::post('/store', [\App\Http\Controllers\UserController::class, 'store'])->name('admin.users.store');
+        Route::delete('/delete/{user_id}', [\App\Http\Controllers\UserController::class, 'delete'])->name('admin.users.delete');
     });
 
     Route::prefix('logs')->middleware('admin')->group(function (){
