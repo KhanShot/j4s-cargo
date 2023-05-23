@@ -35,7 +35,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
         Route::delete('/delete/{user_id}', [\App\Http\Controllers\UserController::class, 'delete'])->name('admin.users.delete');
     });
 
-    Route::prefix('logs')->middleware('admin')->group(function (){
+    Route::prefix('logs')->middleware('manager')->group(function (){
         Route::get('', [\App\Http\Controllers\CostController::class, 'logs'])->name('admin.logs');
     });
 

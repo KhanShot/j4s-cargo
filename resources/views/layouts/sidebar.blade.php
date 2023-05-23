@@ -22,6 +22,8 @@
                         <span class="menu-title visible" style="display:block;" data-i18n="">Треки</span>
                     </a>
                 </li>
+                <li class=" nav-item"><a href="{{route('admin.logs')}}"><i class="icon-list"></i><span class="menu-title visible" data-i18n="">Логи</span></a>
+                </li>
             @endif
         </ul>
     </div>
