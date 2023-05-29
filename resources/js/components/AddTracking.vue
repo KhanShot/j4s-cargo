@@ -2,6 +2,8 @@
 <template>
 </template>
 <script >
+import {useGetTracking} from "../store/getTracking";
+
 export default {
     data() {
         return {
@@ -31,37 +33,7 @@ export default {
         },
 
         handleBarCode(scanned_code){
-
-            axios
-                .post('/admin/tracks/scan', {'scanned_code': scanned_code})
-                .then((response) => {
-                    if (response.data.success) {
-                        let Toast = Swal.mixin({
-                            // toast: true,
-                            position: 'center',
-                            showConfirmButton: true,
-                            timer: 3000,
-                            timerProgressBar: true,
-                        })
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.data.message
-                        })
-                    }
-                }).catch((error) => {
-                console.log(error)
-                let Toast = Swal.mixin({
-                    // toast: true,
-                    position: 'center',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                })
-                Toast.fire({
-                    icon: 'error',
-                    title: error.response.data.message
-                })
-            })
+            useGetTracking().SCAN_BARCODE(scanned_code)
         }
     }
 }

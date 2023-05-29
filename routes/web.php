@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route("login");
 });
-
+Route::get('get-logs', [\App\Http\Controllers\CostController::class, 'getLogs']);
 Auth::routes();
 
 Route::prefix('admin')->middleware(['auth'])->group(function (){

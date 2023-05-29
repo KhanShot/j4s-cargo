@@ -28,7 +28,7 @@
         </ul>
     </div>
 </div>
-<div id="app">
+<div >
     <add-tracking></add-tracking>
 </div>
 <script>

@@ -41,7 +41,7 @@
     <!-- END Custom CSS-->
     @vite('resources/js/app.js')
 </head>
-<body class="vertical-layout vertical-compact-menu 2-columns menu-expanded fixed-navbar @if(!auth()->check()) bg-full-screen-image @endif " data-open="click" data-menu="vertical-compact-menu" data-col="2-columns">
+<body id="app" class="vertical-layout vertical-compact-menu 2-columns menu-expanded fixed-navbar @if(!auth()->check()) bg-full-screen-image @endif " data-open="click" data-menu="vertical-compact-menu" data-col="2-columns">
 
 @if(auth()->check())
     @include('layouts.navbar')

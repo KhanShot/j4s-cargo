@@ -6,7 +6,7 @@
 
 import './bootstrap';
 import { createApp } from 'vue';
-
+import { createPinia } from 'pinia'
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
  * registering components with the application instance so they are ready
@@ -14,11 +14,15 @@ import { createApp } from 'vue';
  */
 
 const app = createApp({});
-
+const pinia = createPinia()
 import ExampleComponent from './components/ExampleComponent.vue';
 import AddTracking from "./components/AddTracking.vue";
+import LogsComponent from "./components/LogsComponent.vue";
+import Paginate from "vuejs-paginate-next";
+
 app.component('example-component', ExampleComponent);
 app.component('add-tracking', AddTracking);
+app.component('logs-component', LogsComponent);
 
 /**
  * The following block of code may be used to automatically register your
@@ -38,4 +42,6 @@ app.component('add-tracking', AddTracking);
  * scaffolding. Otherwise, you will need to add an element yourself.
  */
 
+app.use(pinia)
+app.use(Paginate)
 app.mount('#app');

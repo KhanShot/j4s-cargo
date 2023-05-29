@@ -72,8 +72,11 @@
                             <option value="china_stock">Доставлен в склад(Китай)</option>
                             <option value="kaz_stock">Доставлен в Казахстан</option>
                             <option value="kaz_pvz_stock">Доставлен в ПВЗ Казахстан</option>
+                            <option value="stock_out">Выдан клиенту</option>
                         </select>
-                        <button type="submit" class="btn btn-success">Изменить статус</button>
+                        <div class="d-flex justify-content-end mt-2">
+                            <button type="submit" class="btn btn-success">Изменить статус</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -82,11 +85,10 @@
 @endsection
 @section("js")
     <script>
-        $('#editTrackModal').on('show.bs.modal', function (event) {
-            let button = $(event.relatedTarget) // Button that triggered the modal
-            let recipient = button.data('track-id') // Extract info from data-* attributes
-            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        $(document).on('show.bs.modal', '#editTrackModal',function (event) {
+
+            let button = $(event.relatedTarget)
+            let recipient = button.data('track-id')
             let modal = $(this)
             modal.find('#tracking_id').val(recipient)
         })
