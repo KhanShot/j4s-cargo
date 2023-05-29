@@ -16,16 +16,16 @@ class TracksController extends Controller
         $trackings = Tracking::query()->where('user_id', auth()->user()->id)->get();
         $price = Cost::query()->first()->price ?? 4.0;
 
-        $response = Http::get('https://nationalbank.kz/rss/rates_all.xml');
-
-        $xml = simplexml_load_string($response->getBody(),'SimpleXMLElement',LIBXML_NOCDATA);
-        $json = json_decode(json_encode($xml));
-        $currencies = $json->channel->item;
+//        $response = Http::get('https://nationalbank.kz/rss/rates_all.xml');
+//
+//        $xml = simplexml_load_string($response->getBody(),'SimpleXMLElement',LIBXML_NOCDATA);
+//        $json = json_decode(json_encode($xml));
+//        $currencies = $json->channel->item;
         $dollar = 450;
-        foreach ($currencies as $currency){
-            if ($currency->title === "USD")
-                $dollar = $currency->description;
-        }
+//        foreach ($currencies as $currency){
+//            if ($currency->title === "USD")
+//                $dollar = $currency->description;
+//        }
         return view('pages.tracks', compact('trackings', 'price', 'dollar'));
     }
 
@@ -60,14 +60,14 @@ class TracksController extends Controller
         $track = Tracking::query()->where('number', $request->get('scanned_code'))->first();
         $data = array();
         $data['user_id'] = auth()->user()->id;
-        $data['city'] = Location::get($request->ip())->cityName;
+//        $data['city'] = Location::get($request->ip())->cityName;
         $data['ip'] = $request->getClientIp();
         $data['scanned_code'] = $request->get('scanned_code');
         if (!$track){
             $data['status'] = 'fail';
-            $data['text'] = 'сканированный код не найден!';
+            $data['text'] = 'сканированный код не найден: ';
             $this->createLog($data);
-            return $this->failedResponse('Код не найден!', 404, $track);
+            return $this->failedResponse('Код не найден: '. $request->get('scanned_code'), 404, $track);
         }
 
         $manager_location = auth()->user()->manager_location;
