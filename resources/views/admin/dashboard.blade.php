@@ -27,7 +27,7 @@
                 labels: label,
                 datasets: [
                     {
-                        label: "Кол-во пользователей",
+                        label: "Кол-во трекингов",
                         data: tracks,
                         backgroundColor: '#f3b3b3',
                         borderColor: '#ff0000',
