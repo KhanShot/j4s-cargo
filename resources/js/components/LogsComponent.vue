@@ -29,7 +29,7 @@
                 </div>
                 <div class="form-group col-md-2 d-flex flex-column">
                     <label class="opacity-0" style="opacity: 0">a</label>
-                    <button class="btn btn-success">Экспорт пдф</button>
+                    <button class="btn btn-success" data-toggle="modal" data-target="#importModal">Импрпорт пдф</button>
                 </div>
             </div>
         </div>
@@ -70,6 +70,41 @@
         >
         </paginate>
 
+
+        <!-- Modal -->
+        <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="importModalLabel">Импортировать сканы</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                            <div class="form-group">
+                                <label>Выберите локацию импорта</label>
+                                <select v-model="formData.import_location" class="form-control">
+                                    <option value="china">Склад(Китай)</option>
+                                    <option value="kaz">Казахстан</option>
+                                    <option value="kaz_pvz">ПВЗ Казахстан</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label for="file">Выберите файл (эксель)</label>
+                                <input type="file" accept=".xlsx, .xls, .csv" class="form-control" @change="handleFileChange" required>
+                            </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" @click="submitForm" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>
@@ -83,14 +118,36 @@ import Paginate from 'vuejs-paginate-next';
 export default {
     data(){
       return {
-
+          formData: {
+              import_location: "",
+              file: null,
+          },
       }
     },
     components: {
         paginate: Paginate,
     },
     methods:{
+        handleFileChange(event) {
+            // Update the formData object with the selected file
+            this.formData.file = event.target.files[0];
+        },
+        submitForm() {
+            // Create a FormData object to send the data to the server
+            const formData = new FormData();
+            formData.append('import_location', this.formData.import_location);
+            formData.append('file', this.formData.file);
 
+            // You can now make an HTTP POST request to your server to handle the form submission
+            // For example, using Axios:
+            axios.post('/admin/logs/import', formData)
+              .then(response => {
+                // Handle the server response
+              })
+              .catch(error => {
+                // Handle errors
+              });
+        },
     },
     setup(){
         const store = useGetTracking()

@@ -13,6 +13,10 @@ class CostController extends Controller
         return view('admin.costs', compact('cost'));
     }
 
+    public function import(Request $request){
+        return $request->file('file');
+    }
+
     public function logs(){
         $logs = TrackLog::with('user')
             ->orderBy('created_at', 'DESC')

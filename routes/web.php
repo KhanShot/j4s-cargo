@@ -37,6 +37,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function (){
 
     Route::prefix('logs')->middleware('manager')->group(function (){
         Route::get('', [\App\Http\Controllers\CostController::class, 'logs'])->name('admin.logs');
+        Route::post('import', [\App\Http\Controllers\CostController::class, 'import'])->name('admin.import');
     });
 
     Route::prefix('cost')->middleware('admin')->group(function (){
