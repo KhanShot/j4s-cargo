@@ -5,28 +5,28 @@
             <h3>Логи</h3>
         </div>
         <div class="card">
-            <div class="card-body d-flex">
-                <div class="form-group col-md-2">
-                    <label>Трек код</label>
-                    <input class="form-control" placeholder="Поиск">
-                </div>
-                <div class="form-group col-md-2">
-                    <label>Дата от</label>
-                    <input type="date" class="form-control" placeholder="Поиск">
-                </div>
-                <div class="form-group col-md-2">
-                    <label>Дата до</label>
-                    <input type="date" class="form-control" placeholder="Поиск">
-                </div>
+            <div class="card-body d-flex justify-content-end">
+<!--                <div class="form-group col-md-2">-->
+<!--                    <label>Трек код</label>-->
+<!--                    <input class="form-control" placeholder="Поиск">-->
+<!--                </div>-->
+<!--                <div class="form-group col-md-2">-->
+<!--                    <label>Дата от</label>-->
+<!--                    <input type="date" class="form-control" placeholder="Поиск">-->
+<!--                </div>-->
+<!--                <div class="form-group col-md-2">-->
+<!--                    <label>Дата до</label>-->
+<!--                    <input type="date" class="form-control" placeholder="Поиск">-->
+<!--                </div>-->
 
-                <div class="form-group col-md-2 d-flex flex-column">
-                    <label class="opacity-0" style="opacity: 0">a</label>
-                    <button class="btn btn-info">Фильтр</button>
-                </div>
-                <div class="form-group col-md-2 d-flex flex-column">
-                    <label class="opacity-0" style="opacity: 0">a</label>
-                    <button class="btn btn-warning">Сбросить фильтр</button>
-                </div>
+<!--                <div class="form-group col-md-2 d-flex flex-column">-->
+<!--                    <label class="opacity-0" style="opacity: 0">a</label>-->
+<!--                    <button class="btn btn-info">Фильтр</button>-->
+<!--                </div>-->
+<!--                <div class="form-group col-md-2 d-flex flex-column">-->
+<!--                    <label class="opacity-0" style="opacity: 0">a</label>-->
+<!--                    <button class="btn btn-warning">Сбросить фильтр</button>-->
+<!--                </div>-->
                 <div class="form-group col-md-2 d-flex flex-column">
                     <label class="opacity-0" style="opacity: 0">a</label>
                     <button class="btn btn-success" data-toggle="modal" data-target="#importModal">Импрпорт пдф</button>
@@ -39,7 +39,7 @@
                 <th>#</th>
                 <th>Трек код</th>
                 <th>Пользователь</th>
-                <th>Город</th>
+                <th>Статус трекинга</th>
                 <th>Статус</th>
                 <th>Текст</th>
                 <th>Время сканирование</th>
@@ -50,7 +50,7 @@
                 <td>{{log.id}}</td>
                 <td>{{log.scanned_code}}</td>
                 <td>{{log.user_name}}</td>
-                <td>{{log.city}}</td>
+                <td>{{ log.track_status}}</td>
                 <td v-html="log.status"></td>
                 <td>{{log.text}}</td>
                 <td>{{log.created_at}}</td>
@@ -86,9 +86,9 @@
                             <div class="form-group">
                                 <label>Выберите локацию импорта</label>
                                 <select v-model="formData.import_location" class="form-control">
-                                    <option value="china">Склад(Китай)</option>
-                                    <option value="kaz">Казахстан</option>
-                                    <option value="kaz_pvz">ПВЗ Казахстан</option>
+                                    <option value="china_stock">Склад(Китай)</option>
+                                    <option value="kaz_stock">Казахстан</option>
+                                    <option value="kaz_pvz_stock">ПВЗ Казахстан</option>
                                 </select>
                             </div>
 
@@ -99,7 +99,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="close" >Close</button>
                         <button type="button" @click="submitForm" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
@@ -142,7 +142,8 @@ export default {
             // For example, using Axios:
             axios.post('/admin/logs/import', formData)
               .then(response => {
-                // Handle the server response
+                  $('#close').click();
+                  location.href = '/admin/logs'
               })
               .catch(error => {
                 // Handle errors

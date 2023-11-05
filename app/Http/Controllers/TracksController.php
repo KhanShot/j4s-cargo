@@ -31,6 +31,9 @@ class TracksController extends Controller
 
 
     public function create(Request $request){
+
+        $logs = TrackLog::query()->where('scanned_code', $request->get('number'))->first();
+
         Tracking::query()->create([
             'number' => $request->get('number'),
             'description' => $request->get('description'),
@@ -38,6 +41,7 @@ class TracksController extends Controller
             'user_id' => auth()->user()->id,
             'state' => auth()->user()->state,
             'city' => auth()->user()->city,
+            'status' => $logs->track_status ?? 'created'
         ]);
         return redirect()->route('tracks')->with('success', 'Трекинг добавлен!');
     }
