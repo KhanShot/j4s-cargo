@@ -13,8 +13,7 @@
                     </li>
                     <li class="nav-item d-md-none">
                         <a class="navbar-brand" href="@if(auth()->user()->type == 'admin') {{route('admin.dashboard')}} @else # @endif">
-                            <img class="brand-logo d-none d-md-block" alt="CryptoDash admin logo" src="/log.png">
-                            <img class="brand-logo d-md-none" alt="CryptoDash admin logo sm" src="/log.png">
+                            JUSAN
                         </a>
                     </li>
                     <li class="nav-item d-md-none">

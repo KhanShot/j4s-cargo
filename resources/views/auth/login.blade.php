@@ -10,8 +10,8 @@
                         <div class="col-12 d-flex align-items-center justify-content-center">
                             <!-- image -->
                             <div class="col-xl-3 col-lg-4 col-md-5 col-sm-5 col-12 p-0 text-center d-none d-md-block">
-                                <div class="border-grey border-lighten-3 m-0 box-shadow-0 card-account-left height-400">
-                                    <img src="log.png" class="card-account-img width-500 mt-5" alt="card-account-img">
+                                <div class="border-grey border-lighten-3 m-0 box-shadow-0 card-account-left height-400" style="padding-top: 165px;">
+                                    <span class="h1 text-danger">JUSAN - CARGO</span>
                                 </div>
                             </div>
                             <!-- login form -->

@@ -1,7 +1,7 @@
 <div class="main-menu menu-fixed menu-dark menu-bg-default rounded menu-accordion menu-shadow">
     <div class="main-menu-content">
         <a class="navigation-brand d-none d-md-block d-lg-block d-xl-block" href="@if(auth()->user()->type == 'admin') {{route('admin.dashboard')}} @else # @endif">
-            <img class="brand-logo" src="/log.png"/>
+            <span class="h3 text-danger">JUSAN</span>
         </a>
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             @if(auth() && auth()->user()->type == 'admin')
