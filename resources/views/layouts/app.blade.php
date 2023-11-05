@@ -8,8 +8,8 @@
     <meta name="keywords" content="admin template, CryptoDash Cryptocurrency Dashboard Template, dashboard template, flat admin template, responsive admin template, web app, crypto dashboard, bitcoin dashboard">
     <meta name="author" content="ThemeSelection">
     <title>Jusan - Cargo</title>
-    <link rel="apple-touch-icon" href="log.png">
-    <link rel="shortcut icon" type="image/x-icon" href="log.png">
+{{--    <link rel="apple-touch-icon" href="log.png">--}}
+{{--    <link rel="shortcut icon" type="image/x-icon" href="log.png">--}}
     <link href="https://fonts.googleapis.com/css?family=Muli:300,300i,400,400i,600,600i,700,700i|Comfortaa:300,400,500,700" rel="stylesheet">
     <!-- BEGIN VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="/css/vendors.css">
