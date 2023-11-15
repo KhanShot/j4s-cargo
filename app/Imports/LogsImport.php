@@ -2,7 +2,10 @@
 
 namespace App\Imports;
 
+use App\Models\Tracking;
 use App\Models\TrackLog;
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class LogsImport implements ToModel
@@ -19,6 +22,16 @@ class LogsImport implements ToModel
     */
     public function model(array $row)
     {
+        DB::beginTransaction();
+
+        $track = Tracking::query()->where('number', $row[0])->first();
+        if ($track){
+            $track->status = $this->import_location ?? 'created';
+            $track->save();
+        }
+
+        DB::commit();
+
         return new TrackLog([
             'scanned_code' => $row[0],
             'text' => 'Импортирован',
